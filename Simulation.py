@@ -1,10 +1,10 @@
 import numpy as np 
-import functions
+import Functions
 import configparser
 
 
 config = configparser.ConfigParser()
-config.read('configuration.txt')
+config.read('Configuration.txt')
 
 
 print("\n")
@@ -30,7 +30,7 @@ print(T, '\n')
 #Initial State settings
 
 initial_state = config.get('initial state', 'state')
-IS = functions.initialstate(initial_state)
+IS = Functions.initialstate(initial_state)
 print("Initial state: ", initial_state)
 I = np.matrix([IS])
 
@@ -39,7 +39,7 @@ I = np.matrix([IS])
 
 number_steps = config.get('number of steps', 'steps') 
 number_steps = int(number_steps) - 2
-A = functions.stat_distr(T, I, IS, number_steps)
+A = Functions.stat_distr(T, I, IS, number_steps)
 print("\nStationary distribution:")
 print(A[len(A)-1]) #the stationary distribution is the last element of A 
 
@@ -58,7 +58,9 @@ print("\nState G:", B[6])
 print("\nState H:", B[7]) 
 
 
+#Plot
 
+Functions.plot_func(A, B) 
 
 
 
