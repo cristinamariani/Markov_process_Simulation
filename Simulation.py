@@ -1,4 +1,10 @@
 import numpy as np 
+import functions
+import configparser
+
+
+config = configparser.ConfigParser()
+config.read('configuration.txt')
 
 
 print("\n")
@@ -21,7 +27,12 @@ T = np.matrix([[0.20, 0.30, 0.05, 0.06, 0.10, 0.04, 0.05, 0.20],
 print(T, '\n')
 
 
+#Initial State settings
 
+initial_state = config.get('initial state', 'state')
+IS = functions.initialstate(initial_state)
+print("Initial state: ", initial_state)
+I = np.matrix([IS])
 
 
 
