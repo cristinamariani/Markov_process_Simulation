@@ -44,7 +44,18 @@ print("\nStationary distribution:")
 print(A[len(A)-1]) #the stationary distribution is the last element of A 
 
 
+#Probabilities calculation
 
+B = A.transpose()
+print("\nProbabilities to reach a state at a specific step:")
+print("\nState A:", B[0])
+print("\nState B:", B[1])
+print("\nState C:", B[2])  
+print("\nState D:", B[3])  
+print("\nState E:", B[4])  
+print("\nState F:", B[5])  
+print("\nState G:", B[6])  
+print("\nState H:", B[7]) 
 
 
 
