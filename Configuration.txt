@@ -7,3 +7,6 @@ state = A
 #state = F
 #state = G
 #state = H
+
+[number of steps]
+steps = 30
