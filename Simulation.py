@@ -35,6 +35,15 @@ print("Initial state: ", initial_state)
 I = np.matrix([IS])
 
 
+#Stationary distribution calculation
+
+number_steps = config.get('number of steps', 'steps') 
+number_steps = int(number_steps) - 2
+A = functions.stat_distr(T, I, IS, number_steps)
+print("\nStationary distribution:")
+print(A[len(A)-1]) #the stationary distribution is the last element of A 
+
+
 
 
 
