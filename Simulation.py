@@ -63,6 +63,15 @@ print("\nState H:", B[7])
 Functions.plot_func(A, B) 
 
 
+#Random walk generation
+
+T = np.array(T)
+states = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+seed = 3 #random seed
+path = Functions.rnd_walk(A, T, initial_state, states, seed)
+print("\nRandom walk example:")
+print(path)
+
 
 
 
