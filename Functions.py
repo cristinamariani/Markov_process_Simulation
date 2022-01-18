@@ -1,5 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import random
+
     
 #Initial State settings
 def initialstate(initial_state):    
@@ -75,8 +77,44 @@ def plot_func(A, B):
     plt.ylabel('Probability')   
     plt.show() 
     return()
-    
 
+    
+#Random walk generation function 
+def rnd_walk(A, T, initial_state, states, seed):
+    path = [] #list which will contain the path
+    path.append(initial_state) #initial state added to the list in position 0
+    
+    #path simulation 
+    random.seed(seed)   
+    for i in range(len(A)-1):           
+        if path[i] == 'A':
+            weights = T[0]
+                   
+        elif path[i] == 'B':
+            weights = T[1]
+                
+        elif path[i] == 'C':
+            weights = T[2]
+               
+        elif path[i] == 'D':
+            weights = T[3]
+               
+        elif path[i] == 'E':
+            weights = T[4]
+               
+        elif path[i] == 'F':
+            weights = T[5]
+               
+        elif path[i] == 'G':
+            weights = T[6] 
+               
+        else:
+            weights = T[7]
+    
+        next_state = random.choices(states, weights)
+        path.append(next_state[0])    
+
+    return(path) 
 
 
 
