@@ -38,9 +38,7 @@ def initialstate(initial_state):
         else:
             IS = np.array([0, 0, 0, 0, 0, 0, 0, 1])
             break
-        
-    #print(IS)
-    #print(initial_state)   
+          
     return(IS) 
 
 
