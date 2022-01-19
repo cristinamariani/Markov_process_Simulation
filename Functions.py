@@ -46,7 +46,13 @@ def initialstate(initial_state):
 
 
 #Calculation of stationary distribution
-def stat_distr(T, I, IS, number_steps):    
+def stat_distr(T, I, IS, number_steps):
+    
+    #the number of steps must be at least 10 in order to reach stationarity
+    if number_steps < 10:
+        raise ValueError("Invalid number of steps. It must be at least equal to 10 in order to reach stationarity")
+    
+    number_steps = number_steps - 2   
     A = np.array([I*T]) #first matrix multiplication result
     i = 0 #index
     while i < number_steps:       
@@ -60,7 +66,7 @@ def stat_distr(T, I, IS, number_steps):
     IS = IS.reshape(1,8)
     A = np.concatenate((IS,A),axis= 0)        
     return(A)
-
+ 
 
 #Plot function
 def plot_func(A, B):
