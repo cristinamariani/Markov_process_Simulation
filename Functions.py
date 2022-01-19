@@ -35,9 +35,12 @@ def initialstate(initial_state):
            IS = np.array([0, 0, 0, 0, 0, 0, 1, 0])
            break
            
-        else:
+        elif initial_state == 'H':
             IS = np.array([0, 0, 0, 0, 0, 0, 0, 1])
             break
+          
+        else:
+            raise ValueError("Invalid initial state. It must be chosen among: {A, B, C, D, E, F, G, H}")
           
     return(IS) 
 
