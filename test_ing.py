@@ -45,7 +45,7 @@ def test_initialstate_1():
 def test_initialstate_2():     
     with pytest.raises(ValueError):
         Functions.initialstate('abc')
-        Functions.initialstate(123) 
+        Functions.initialstate(123)  
             
 
 #"stat_distr" function testing 
@@ -65,8 +65,10 @@ def test_stat_distr_1():
 def test_rnd_walk_1():
     assert Functions.rnd_walk(A, T, 'A', states, 3) == randomwalk
         
-
-
+# test 2: tests that ValueError is raised when the random seed is not a number    
+def test_rnd_walk_2():     
+    with pytest.raises(ValueError):
+        Functions.rnd_walk(A, T, 'A', states, 'abc')
 
 
 
