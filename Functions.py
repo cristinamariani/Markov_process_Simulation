@@ -88,8 +88,12 @@ def plot_func(A, B):
     
 #Random walk generation function 
 def rnd_walk(A, T, initial_state, states, seed):
+    T = np.array(T)
     path = [] #list which will contain the path
     path.append(initial_state) #initial state added to the list in position 0
+    #Raise error if random seed is not a number
+    if isinstance(seed, str):
+        raise ValueError("Invalid seed. It must be a number")    
     
     #path simulation 
     random.seed(seed)   
