@@ -16,8 +16,8 @@ T = np.matrix([[0.20, 0.30, 0.05, 0.06, 0.10, 0.04, 0.05, 0.20],
 
 #Values for number of steps = 10 with initial state 'A' and random seed = 3
 IS = np.array([1, 0, 0, 0, 0, 0, 0, 0])
+I = np.matrix([IS])
 number_steps = 10
-#seed = 3
 
 A = [[1., 0., 0., 0., 0., 0., 0., 0.],
      [0.2, 0.3, 0.05, 0.06, 0.1, 0.04, 0.05, 0.2],
@@ -31,6 +31,7 @@ A = [[1., 0., 0., 0., 0., 0., 0., 0.],
      [0.1206665, 0.28386823, 0.18275225, 0.03983272, 0.13178282, 0.06221676, 0.06412137, 0.11475935],
      [0.1206665, 0.28386823, 0.18275225, 0.03983272, 0.13178282, 0.06221676, 0.06412137, 0.11475935]]
 
+statdistr = np.array([0.1206665, 0.28386823, 0.18275225, 0.03983272, 0.13178282, 0.06221676, 0.06412137, 0.11475935])
 states = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 randomwalk = ['A', 'B', 'C', 'B', 'E', 'E', 'C', 'A', 'H', 'B', 'B']
 
@@ -50,9 +51,13 @@ def test_initialstate_2():
 
 #"stat_distr" function testing 
 
-# test 1: tests that ValueError is raised when the number of steps is <10
+# test 1: tests that the output is the expected value
 def test_stat_distr_1():
-    I = np.matrix([IS])
+    func_outcome = Functions.stat_distr(T, I, IS, number_steps)[10]
+    assert np.allclose(func_outcome, statdistr)
+
+# test 1: tests that ValueError is raised when the number of steps is <10
+def test_stat_distr_2():
     number_steps = 5
        
     with pytest.raises(ValueError):
