@@ -4,44 +4,21 @@ import random
 
     
 #Initial State settings
-def initialstate(initial_state):    
-    while True:        
-        
-        if initial_state == 'A':
-           IS = np.array([1, 0, 0, 0, 0, 0, 0, 0]) 
-           break
-            
-        elif initial_state == 'B':
-           IS = np.array([0, 1, 0, 0, 0, 0, 0, 0])
-           break
-            
-        elif initial_state == 'C':
-           IS = np.array([0, 0, 1, 0, 0, 0, 0, 0])
-           break
-           
-        elif initial_state == 'D':
-           IS = np.array([0, 0, 0, 1, 0, 0, 0, 0])
-           break
-           
-        elif initial_state == 'E':
-           IS = np.array([0, 0, 0, 0, 1, 0, 0, 0])
-           break
-           
-        elif initial_state == 'F':
-           IS = np.array([0, 0, 0, 0, 0, 1, 0, 0])
-           break
-           
-        elif initial_state == 'G':
-           IS = np.array([0, 0, 0, 0, 0, 0, 1, 0])
-           break
-           
-        elif initial_state == 'H':
-            IS = np.array([0, 0, 0, 0, 0, 0, 0, 1])
-            break
-          
-        else:
-            raise ValueError("Invalid initial state. It must be chosen among: {A, B, C, D, E, F, G, H}")
-          
+def initialstate(initial_state):
+
+    init_state_dict = {'A': np.array([1, 0, 0, 0, 0, 0, 0, 0]),
+                       'B': np.array([0, 1, 0, 0, 0, 0, 0, 0]),
+                       'C': np.array([0, 0, 1, 0, 0, 0, 0, 0]),
+                       'D': np.array([0, 0, 0, 1, 0, 0, 0, 0]),
+                       'E': np.array([0, 0, 0, 0, 1, 0, 0, 0]),
+                       'F': np.array([0, 0, 0, 0, 0, 1, 0, 0]),
+                       'G': np.array([0, 0, 0, 0, 0, 0, 1, 0]),
+                       'H': np.array([0, 0, 0, 0, 0, 0, 0, 1]) }
+    
+    if initial_state not in init_state_dict.keys():
+        raise ValueError("Invalid initial state. It must be chosen among: {A, B, C, D, E, F, G, H}")
+                         
+    IS = init_state_dict[initial_state]          
     return(IS) 
 
 
@@ -64,7 +41,7 @@ def stat_distr(T, I, IS, number_steps):
     A = np.concatenate((C,A),axis= 0) 
     A = A.reshape(len(A),8)
     IS = IS.reshape(1,8)
-    A = np.concatenate((IS,A),axis= 0)        
+    A = np.concatenate((IS,A),axis= 0)       
     return(A)
  
 
