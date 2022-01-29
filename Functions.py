@@ -16,8 +16,8 @@ def initialstate(initial_state):
                        'H': np.array([0, 0, 0, 0, 0, 0, 0, 1]) }
     
     if initial_state not in init_state_dict.keys():
-        raise ValueError("Invalid initial state. It must be chosen among: {A, B, C, D, E, F, G, H}")
-                         
+        raise ValueError("Invalid initial state. It must be chosen among: {A, B, C, D, E, F, G, H}")                         
+    
     IS = init_state_dict[initial_state]          
     return(IS) 
 
@@ -72,36 +72,12 @@ def rnd_walk(A, T, initial_state, states, seed):
     if isinstance(seed, str):
         raise ValueError("Invalid seed. It must be a number")    
     
-    #path simulation 
+    #path simulation     
+    weights_dict = {'A': T[0], 'B': T[1], 'C': T[2], 'D': T[3], 'E': T[4], 'F': T[5], 'G': T[6], 'H': T[7] }                                                                                                  
     random.seed(seed)   
-    for i in range(len(A)-1):           
-        if path[i] == 'A':
-            weights = T[0]
-                   
-        elif path[i] == 'B':
-            weights = T[1]
-                
-        elif path[i] == 'C':
-            weights = T[2]
-               
-        elif path[i] == 'D':
-            weights = T[3]
-               
-        elif path[i] == 'E':
-            weights = T[4]
-               
-        elif path[i] == 'F':
-            weights = T[5]
-               
-        elif path[i] == 'G':
-            weights = T[6] 
-               
-        else:
-            weights = T[7]
-    
-        next_state = random.choices(states, weights)
-        path.append(next_state[0])    
-
+    for i in range(len(A)-1):               
+        next_state = random.choices(states, weights_dict[path[i]])
+        path.append(next_state[0])            
     return(path) 
 
 
