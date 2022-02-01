@@ -58,8 +58,7 @@ def test_stat_distr_1():
 
 # test 1: tests that ValueError is raised when the number of steps is <10
 def test_stat_distr_2():
-    number_steps = 5
-       
+    number_steps = 5       
     with pytest.raises(ValueError):
         Functions.stat_distr(T, I, IS, number_steps)
 
