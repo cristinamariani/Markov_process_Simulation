@@ -1,18 +1,20 @@
 import numpy as np
 import Functions
 import pytest
+import configparser
+import json
 
 
-#Definition of variables that are used in testing functions 
-   
-T = np.matrix([[0.20, 0.30, 0.05, 0.06, 0.10, 0.04, 0.05, 0.20],
-               [0.10, 0.40, 0.05, 0.00, 0.30, 0.05, 0.01, 0.09],
-               [0.05, 0.60, 0.20, 0.02, 0.01, 0.04, 0.08, 0.00],
-               [0.20, 0.20, 0.04, 0.07, 0.09, 0.30, 0.05, 0.05],
-               [0.00, 0.00, 0.50, 0.08, 0.10, 0.04, 0.08, 0.20],
-               [0.05, 0.10, 0.10, 0.06, 0.00, 0.09, 0.40, 0.20],
-               [0.30, 0.07, 0.10, 0.06, 0.07, 0.15, 0.05, 0.20],
-               [0.25, 0.05, 0.40, 0.07, 0.10, 0.03, 0.00, 0.10]])
+config = configparser.ConfigParser()
+config.read('Configuration.txt')
+
+
+#Variables that are used in testing functions 
+
+#Transition Matrix
+T = config.get('transition matrix', 'T')
+T = json.loads(T)
+T = np.matrix(T)
 
 #Values for number of steps = 10 with initial state 'A' and random seed = 3
 IS = np.array([1, 0, 0, 0, 0, 0, 0, 0])
@@ -69,10 +71,6 @@ def test_stat_distr_2():
 def test_rnd_walk_1():
     assert Functions.rnd_walk(A, T, 'A', states, 3) == randomwalk
         
-# test 2: tests that ValueError is raised when the random seed is not a number    
-def test_rnd_walk_2():     
-    with pytest.raises(ValueError):
-        Functions.rnd_walk(A, T, 'A', states, 'abc')
 
 
 
