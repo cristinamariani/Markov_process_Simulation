@@ -3,6 +3,7 @@ import Functions
 import pytest
 import configparser
 import json
+import math
 
 
 config = configparser.ConfigParser()
@@ -71,11 +72,17 @@ def test_stat_distr_1():
     func_outcome = Functions.stat_distr(T, I, IS, number_steps)[10]
     assert np.allclose(func_outcome, statdistr)
 
-# test 1: tests that ValueError is raised when the number of steps is <10
+# test 2: tests that ValueError is raised when the number of steps is <10
 def test_stat_distr_2():
     number_steps = 5       
     with pytest.raises(ValueError):
         Functions.stat_distr(T, I, IS, number_steps)
+
+# test 3: tests that the sum of the elements of the stationary distribution array is equal to 1
+def test_stat_distr_3():
+    assert math.isclose(np.sum(Functions.stat_distr(T, I, IS, number_steps)[10]),1)
+
+
 
 
 #"rnd_walk" function testing
