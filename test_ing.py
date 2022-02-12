@@ -82,7 +82,9 @@ def test_stat_distr_2():
 def test_stat_distr_3():
     assert math.isclose(np.sum(Functions.stat_distr(T, I, IS, number_steps)[10]),1)
 
-
+# test 4: tests that for different initial state, the stationary distribution is the same  
+def test_stat_distr_4():
+    assert np.array_equal(np.sum(Functions.stat_distr(T, I, Functions.initialstate('F'), number_steps)[10]), np.sum(Functions.stat_distr(T, I, Functions.initialstate('G'), number_steps)[10]))
 
 
 #"rnd_walk" function testing
