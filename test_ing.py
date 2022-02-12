@@ -58,6 +58,10 @@ def test_initialstate_3():
 def test_initialstate_4():
     assert not np.array_equal(Functions.initialstate('E'),Functions.initialstate('C'))
     
+# test 5: tests that the output array has 1 element equal to 1 and the others equal to 0
+def test_initialstate_5():
+    assert np.count_nonzero(Functions.initialstate('A')) == 1 #only one element is non-zero
+    assert np.count_nonzero(Functions.initialstate('A') == 1) == 1 #the only one non-zero element is 1
             
  
 #"stat_distr" function testing 
