@@ -5,7 +5,6 @@ import random
     
 #Initial State settings
 def initialstate(initial_state):
-
     init_state_dict = {'A': np.array([1, 0, 0, 0, 0, 0, 0, 0]),
                        'B': np.array([0, 1, 0, 0, 0, 0, 0, 0]),
                        'C': np.array([0, 0, 1, 0, 0, 0, 0, 0]),
@@ -13,30 +12,25 @@ def initialstate(initial_state):
                        'E': np.array([0, 0, 0, 0, 1, 0, 0, 0]),
                        'F': np.array([0, 0, 0, 0, 0, 1, 0, 0]),
                        'G': np.array([0, 0, 0, 0, 0, 0, 1, 0]),
-                       'H': np.array([0, 0, 0, 0, 0, 0, 0, 1]) }
-    
+                       'H': np.array([0, 0, 0, 0, 0, 0, 0, 1]) }    
     if initial_state not in init_state_dict.keys():
-        raise ValueError("Invalid initial state. It must be chosen among: {A, B, C, D, E, F, G, H}")                         
-    
+        raise ValueError("Invalid initial state. It must be chosen among: {A, B, C, D, E, F, G, H}")                             
     IS = init_state_dict[initial_state]          
     return(IS) 
 
 
 #Calculation of stationary distribution
-def stat_distr(T, I, IS, number_steps):
-    
+def stat_distr(T, I, IS, number_steps):    
     #the number of steps must be at least 10 in order to reach stationarity
     if number_steps < 10:
-        raise ValueError("Invalid number of steps. It must be at least equal to 10 in order to reach stationarity")
-    
+        raise ValueError("Invalid number of steps. It must be at least equal to 10 in order to reach stationarity")   
     number_steps = number_steps - 2   
     A = np.array([I*T]) #first matrix multiplication result
     i = 0 #index
     while i < number_steps:       
         A[i] = A[i-1]*T
         A = np.append(A, [A[i]], axis=0)   
-        i += 1
-        
+        i += 1       
     C = np.array([I*T])
     A = np.concatenate((C,A),axis= 0) 
     A = A.reshape(len(A),8)
@@ -64,18 +58,17 @@ def plot_func(A, B):
 
     
 #Random walk generation function 
-def rnd_walk(A, T, initial_state, states, seed):
+def rnd_walk(number_steps, T, initial_state, states, seed):
     T = np.array(T)
     path = [] #list which will contain the path
     path.append(initial_state) #initial state added to the list in position 0
     #Raise error if random seed is not a number
     if isinstance(seed, str):
-        raise ValueError("Invalid seed. It must be a number")    
-    
+        raise ValueError("Invalid seed. It must be a number")        
     #path simulation     
     weights_dict = {'A': T[0], 'B': T[1], 'C': T[2], 'D': T[3], 'E': T[4], 'F': T[5], 'G': T[6], 'H': T[7] }                                                                                                  
     random.seed(seed)   
-    for i in range(len(A)-1):               
+    for i in range(number_steps):               
         next_state = random.choices(states, weights_dict[path[i]])
         path.append(next_state[0])            
     return(path) 

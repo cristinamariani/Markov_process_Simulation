@@ -30,13 +30,12 @@ IS = Functions.initialstate(initial_state)
 print("Initial state: ", initial_state)
 I = np.matrix([IS])
 
-
 #Stationary distribution calculation
 
 number_steps = config.get('number of steps', 'steps') 
 number_steps = int(number_steps)
 A = Functions.stat_distr(T, I, IS, number_steps)
-print("\nStationary distribution:")
+print("\nStationary distribution:") 
 print(A[len(A)-1]) #the stationary distribution is the last element of A 
 
 
@@ -63,11 +62,11 @@ Functions.plot_func(A, B)
 
 states = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 seed = 3 #random seed
-path = Functions.rnd_walk(A, T, initial_state, states, seed)
+path = Functions.rnd_walk(number_steps, T, initial_state, states, seed)
 print("\nRandom walk example:")
 print(path)
 
- 
+  
 
 
 
