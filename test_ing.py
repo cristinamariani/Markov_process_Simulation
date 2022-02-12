@@ -42,15 +42,21 @@ randomwalk = ['A', 'B', 'C', 'B', 'E', 'E', 'C', 'A', 'H', 'B', 'B']
 
 # test 1: tests that the output is the expected value
 def test_initialstate_1():
-    assert np.array_equal(Functions.initialstate('A'), IS)
+    assert np.array_equal(Functions.initialstate('A'), IS)    
 
 # test 2: tests that ValueError is raised when the input is not chosen among {A, B, C, D, E, F, G, H}    
 def test_initialstate_2():     
     with pytest.raises(ValueError):
         Functions.initialstate('abc')
         Functions.initialstate(123)  
-            
 
+# test 3: tests that the output array has 8 elements
+def test_initialstate_3():
+    assert len(Functions.initialstate('A')) == 8
+
+
+            
+ 
 #"stat_distr" function testing 
 
 # test 1: tests that the output is the expected value
