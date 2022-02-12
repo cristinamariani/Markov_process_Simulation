@@ -53,8 +53,11 @@ def test_initialstate_2():
 # test 3: tests that the output array has 8 elements
 def test_initialstate_3():
     assert len(Functions.initialstate('A')) == 8
-
-
+    
+# test 4: tests that, for different input, the output is different  
+def test_initialstate_4():
+    assert not np.array_equal(Functions.initialstate('E'),Functions.initialstate('C'))
+    
             
  
 #"stat_distr" function testing 
