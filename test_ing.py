@@ -71,7 +71,7 @@ def test_stat_distr_3():
 
 # test 4: tests that for different initial state, the stationary distribution is the same  
 def test_stat_distr_4():
-    assert np.array_equal(np.sum(Functions.stat_distr(T, I, Functions.initialstate('F'), number_steps)[30]), np.sum(Functions.stat_distr(T, I, Functions.initialstate('G'), number_steps)[30]))
+    assert np.array_equal(Functions.stat_distr(T, I, Functions.initialstate('F'), number_steps)[30], Functions.stat_distr(T, I, Functions.initialstate('G'), number_steps)[30])
 
 
 #"rnd_walk" function testing
@@ -84,7 +84,16 @@ def test_rnd_walk_1():
 def test_rnd_walk_2():
     assert Functions.rnd_walk(200, T, 'A', states, 3)[-30:] == Functions.rnd_walk(200, T, 'B', states, 3)[-30:]
 
-
+# test 3: tests that there are no transitions between two specific states if the transition probability is 0 
+def test_rnd_walk_3():
+    assert ['B', 'D'] not in Functions.rnd_walk(200, T, 'A', states, 3)
+    assert ['C', 'H'] not in Functions.rnd_walk(200, T, 'A', states, 3)
+    assert ['E', 'A'] not in Functions.rnd_walk(200, T, 'A', states, 3)
+    assert ['E', 'B'] not in Functions.rnd_walk(200, T, 'A', states, 3)
+    assert ['F', 'E'] not in Functions.rnd_walk(200, T, 'A', states, 3)
+    assert ['H', 'G'] not in Functions.rnd_walk(200, T, 'A', states, 3)
+    
+    
 
 
 
