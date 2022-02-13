@@ -42,6 +42,7 @@ To start the simulation, the user can modify the configuration file to choose th
 python Simulation.py
 ```
 
+In the folder ![output_examples](https://github.com/cristinamariani/Markov_process_Simulation/tree/master/output_examples) I have uploaded as an example the plots and the random walk given as output, for every initial state, with number of steps = 30 and random seed = 3.  
 
 
 
