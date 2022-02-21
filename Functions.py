@@ -16,32 +16,30 @@ def initialstate(initial_state):
     if initial_state not in init_state_dict.keys():
         raise ValueError("Invalid initial state. It must be chosen among: {A, B, C, D, E, F, G, H}")                             
     IS = init_state_dict[initial_state]          
-    return(IS) 
-
-
-#Calculation of stationary distribution
-def prob_distr(T, I, IS, number_steps):    
-    #the number of steps must be at least 10 in order to reach stationarity
-    if number_steps < 10:
-        raise ValueError("Invalid number of steps. It must be at least equal to 10 in order to reach stationarity")   
-    number_steps = number_steps - 2   
-    A = np.array([I*T]) #first matrix multiplication result
-    i = 0 #index
-    while i < number_steps:       
-        A[i] = A[i-1]*T
-        A = np.append(A, [A[i]], axis=0)   
-        i += 1       
-    C = np.array([I*T])
-    A = np.concatenate((C,A),axis= 0) 
-    A = A.reshape(len(A),8)
-    IS = IS.reshape(1,8)
-    A = np.concatenate((IS,A),axis= 0)       
-    return(A)
+    return IS 
  
 
+#Calculation of stationary distribution
+def prob_distr(Transition_matrix, InitialState_array, number_steps): 
+    I = np.matrix([InitialState_array])
+    number_steps = number_steps - 2   
+    A = np.array([I*Transition_matrix]) #first matrix multiplication result
+    i = 0 #index
+    while i < number_steps:       
+        A[i] = A[i-1]*Transition_matrix
+        A = np.append(A, [A[i]], axis=0)   
+        i += 1       
+    C = np.array([I*Transition_matrix])
+    A = np.concatenate((C,A),axis= 0) 
+    A = A.reshape(len(A),8)
+    InitialState_array = InitialState_array.reshape(1,8)
+    A = np.concatenate((InitialState_array,A),axis= 0)       
+    return A 
+  
+
 #Plot function
-def plot_func(A, B):
-    a = np.arange(len(A)) #array which represents the number of steps
+def plot_func(A, B): # A = array which contains the probability distributions as elements, B = transpose of A
+    a = np.arange(len(A)) #array which represents the number of steps 
     plt.plot(a, B[0], 'yellow', label='State A')
     plt.plot(a, B[1], 'pink', label='State B')
     plt.plot(a, B[2], 'aquamarine', label='State C')
@@ -54,24 +52,21 @@ def plot_func(A, B):
     plt.xlabel('Number of steps')
     plt.ylabel('Probability')   
     plt.show() 
-    return()
+    return
 
     
 #Random walk generation function 
-def rnd_walk(number_steps, T, initial_state, states, seed):
-    T = np.array(T)
+def rnd_walk(number_steps, Transition_matrix, initial_state, states, seed):
+    Transition_matrix = np.array(Transition_matrix)
     path = [] #list which will contain the path
-    path.append(initial_state) #initial state added to the list in position 0
-    #Raise error if random seed is not a number
-    if isinstance(seed, str):
-        raise ValueError("Invalid seed. It must be a number")        
+    path.append(initial_state) #initial state added to the list in position 0      
     #path simulation     
-    weights_dict = {'A': T[0], 'B': T[1], 'C': T[2], 'D': T[3], 'E': T[4], 'F': T[5], 'G': T[6], 'H': T[7] }                                                                                                  
+    weights_dict = {'A': Transition_matrix[0], 'B': Transition_matrix[1], 'C': Transition_matrix[2], 'D': Transition_matrix[3], 'E': Transition_matrix[4], 'F': Transition_matrix[5], 'G': Transition_matrix[6], 'H': Transition_matrix[7] }                                                                                                  
     random.seed(seed)   
     for i in range(number_steps):               
         next_state = random.choices(states, weights_dict[path[i]])
         path.append(next_state[0])            
-    return(path) 
+    return path 
 
 
 
