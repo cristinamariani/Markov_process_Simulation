@@ -20,7 +20,7 @@ def initialstate(initial_state):
 
 
 #Calculation of stationary distribution
-def stat_distr(T, I, IS, number_steps):    
+def prob_distr(T, I, IS, number_steps):    
     #the number of steps must be at least 10 in order to reach stationarity
     if number_steps < 10:
         raise ValueError("Invalid number of steps. It must be at least equal to 10 in order to reach stationarity")   

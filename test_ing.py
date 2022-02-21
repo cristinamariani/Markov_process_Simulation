@@ -55,23 +55,23 @@ def test_initialstate_5():
 #"stat_distr" function testing 
 
 # test 1: tests that the output is the expected value
-def test_stat_distr_1():
-    func_outcome = Functions.stat_distr(T, I, IS, number_steps)[30]
+def test_prob_distr_1():
+    func_outcome = Functions.prob_distr(T, I, IS, number_steps)[30]
     assert np.allclose(func_outcome, statdistr)
 
 # test 2: tests that ValueError is raised when the number of steps is <10
-def test_stat_distr_2():
+def test_prob_distr_2():
     number_steps = 5       
     with pytest.raises(ValueError):
-        Functions.stat_distr(T, I, IS, number_steps)
+        Functions.prob_distr(T, I, IS, number_steps)
 
 # test 3: tests that the sum of the elements of the stationary distribution array is equal to 1
-def test_stat_distr_3():
-    assert math.isclose(np.sum(Functions.stat_distr(T, I, IS, number_steps)[30]),1)
+def test_prob_distr_3():
+    assert math.isclose(np.sum(Functions.prob_distr(T, I, IS, number_steps)[30]),1)
 
 # test 4: tests that for different initial state, the stationary distribution is the same  
-def test_stat_distr_4():
-    assert np.array_equal(Functions.stat_distr(T, I, Functions.initialstate('F'), number_steps)[30], Functions.stat_distr(T, I, Functions.initialstate('G'), number_steps)[30])
+def test_prob_distr_4():
+    assert np.array_equal(Functions.prob_distr(T, I, Functions.initialstate('F'), number_steps)[30], Functions.prob_distr(T, I, Functions.initialstate('G'), number_steps)[30])
 
 
 #"rnd_walk" function testing
@@ -80,18 +80,7 @@ def test_stat_distr_4():
 def test_rnd_walk_1():
     assert Functions.rnd_walk(number_steps, T, 'A', states, 3) == randomwalk
         
-# test 2: tests that, for a high number of steps, the chain converges to a stationary distribution
-def test_rnd_walk_2():
-    assert Functions.rnd_walk(200, T, 'A', states, 3)[-30:] == Functions.rnd_walk(200, T, 'B', states, 3)[-30:]
 
-# test 3: tests that there are no transitions between two specific states if the transition probability is 0 
-def test_rnd_walk_3():
-    assert ['B', 'D'] not in Functions.rnd_walk(200, T, 'A', states, 3)
-    assert ['C', 'H'] not in Functions.rnd_walk(200, T, 'A', states, 3)
-    assert ['E', 'A'] not in Functions.rnd_walk(200, T, 'A', states, 3)
-    assert ['E', 'B'] not in Functions.rnd_walk(200, T, 'A', states, 3)
-    assert ['F', 'E'] not in Functions.rnd_walk(200, T, 'A', states, 3)
-    assert ['H', 'G'] not in Functions.rnd_walk(200, T, 'A', states, 3)
     
     
 

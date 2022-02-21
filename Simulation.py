@@ -34,7 +34,7 @@ I = np.matrix([IS])
 
 number_steps = config.get('number of steps', 'steps') 
 number_steps = int(number_steps)
-A = Functions.stat_distr(T, I, IS, number_steps)
+A = Functions.prob_distr(T, I, IS, number_steps)
 print("\nStationary distribution:") 
 print(A[len(A)-1]) #the stationary distribution is the last element of A 
 
@@ -53,11 +53,6 @@ print("\nState G:", B[6])
 print("\nState H:", B[7]) 
 
 
-#Plot
-
-Functions.plot_func(A, B) 
-
-
 #Random walk generation
 
 states = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
@@ -67,7 +62,9 @@ print("\nRandom walk example:")
 print(path)
 
   
+#Plot
 
+Functions.plot_func(A, B) 
 
 
 
