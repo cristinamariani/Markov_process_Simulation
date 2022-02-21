@@ -1,25 +1,23 @@
 import numpy as np
 import Functions
 import pytest
-import configparser
-import json
 import math
-
-
-config = configparser.ConfigParser()
-config.read('Configuration.txt')
 
 
 #Variables used in testing functions 
 
 #Transition Matrix
-T = config.get('transition matrix', 'T')
-T = json.loads(T)
-T = np.matrix(T)
+T = np.matrix([[ 0.2,  0.3, 0.05, 0.06,  0.1, 0.04, 0.05,  0.2],
+               [ 0.1,  0.4, 0.05,    0,  0.3, 0.05, 0.01, 0.09],
+               [0.05,  0.6,  0.2, 0.02, 0.01, 0.04, 0.08,    0],
+               [ 0.2,  0.2, 0.04, 0.07, 0.09,  0.3, 0.05, 0.05],
+               [   0,    0,  0.5, 0.08,  0.1, 0.04, 0.08,  0.2],
+               [0.05,  0.1,  0.1, 0.06,    0, 0.09,  0.4,  0.2],
+               [ 0.3, 0.07,  0.1, 0.06, 0.07, 0.15, 0.05,  0.2],
+               [0.25, 0.05,  0.4, 0.07,  0.1, 0.03,    0,  0.1]])
 
 #Values for number of steps = 30 with initial state 'A' and random seed = 3
 IS = np.array([1, 0, 0, 0, 0, 0, 0, 0])
-I = np.matrix([IS])
 number_steps = 30
 statdistr = np.array([0.12066125, 0.28382706, 0.18280321, 0.0398397, 0.13176984, 0.06221281, 0.0641203, 0.11476584])
 states = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
@@ -54,24 +52,18 @@ def test_initialstate_5():
  
 #"stat_distr" function testing 
 
-# test 1: tests that the output is the expected value
+# test 1: tests that the calculated stationary distribution is the expected value
 def test_prob_distr_1():
-    func_outcome = Functions.prob_distr(T, I, IS, number_steps)[30]
+    func_outcome = Functions.prob_distr(T, IS, number_steps)[30] 
     assert np.allclose(func_outcome, statdistr)
 
-# test 2: tests that ValueError is raised when the number of steps is <10
+# test 2: tests that the sum of the elements of the stationary distribution array is equal to 1
 def test_prob_distr_2():
-    number_steps = 5       
-    with pytest.raises(ValueError):
-        Functions.prob_distr(T, I, IS, number_steps)
-
-# test 3: tests that the sum of the elements of the stationary distribution array is equal to 1
-def test_prob_distr_3():
-    assert math.isclose(np.sum(Functions.prob_distr(T, I, IS, number_steps)[30]),1)
+    assert math.isclose(np.sum(Functions.prob_distr(T, IS, number_steps)[30]),1)
 
 # test 4: tests that for different initial state, the stationary distribution is the same  
 def test_prob_distr_4():
-    assert np.array_equal(Functions.prob_distr(T, I, Functions.initialstate('F'), number_steps)[30], Functions.prob_distr(T, I, Functions.initialstate('G'), number_steps)[30])
+    assert np.array_equal(Functions.prob_distr(T, Functions.initialstate('F'), 100)[100], Functions.prob_distr(T, Functions.initialstate('G'), 100)[100])
 
 
 #"rnd_walk" function testing
