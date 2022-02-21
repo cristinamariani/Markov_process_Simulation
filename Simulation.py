@@ -28,15 +28,17 @@ print(T, '\n')
 initial_state = config.get('initial state', 'state')
 IS = Functions.initialstate(initial_state)
 print("Initial state: ", initial_state)
-I = np.matrix([IS])
+#I = np.matrix([IS])
 
 #Stationary distribution calculation
 
 number_steps = config.get('number of steps', 'steps') 
 number_steps = int(number_steps)
-A = Functions.prob_distr(T, I, IS, number_steps)
-print("\nStationary distribution:") 
-print(A[len(A)-1]) #the stationary distribution is the last element of A 
+A = Functions.prob_distr(T, IS, number_steps)
+#the number of steps must be at least 15 in order to reach stationarity
+if number_steps >= 15:
+    print("\nStationary distribution:") 
+    print(A[len(A)-1]) #the stationary distribution is the last element of A 
 
 
 #Probabilities calculation
