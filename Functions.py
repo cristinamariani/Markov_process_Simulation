@@ -69,7 +69,15 @@ def rnd_walk(number_steps, Transition_matrix, initial_state, states, seed):
     return path 
 
 
-
+#Random walk check function
+def check_rnd_walk(path):
+    forbidden_transitions = [['B', 'D'], ['C', 'H'], ['E', 'A'], ['E', 'B'], ['F', 'E'], ['H', 'G']] #couples of states which have transition probability = 0
+    i = 1
+    while i < len(path):
+        if [path[i-1], path[i]] in forbidden_transitions:
+            raise ValueError("Forbidden transition made!")
+        i += 1
+            
 
 
 
