@@ -75,8 +75,10 @@ def check_rnd_walk(path):
     i = 1
     while i < len(path):
         if [path[i-1], path[i]] in forbidden_transitions:
+            return False
             raise ValueError("Forbidden transition made!")
         i += 1
+    return True
             
 
 
