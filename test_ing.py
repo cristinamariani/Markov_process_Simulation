@@ -23,7 +23,8 @@ number_steps = 30
 statdistr = np.array([0.12066125, 0.28382706, 0.18280321, 0.0398397, 0.13176984, 0.06221281, 0.0641203, 0.11476584])
 states = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 randomwalk = ['A', 'B', 'C', 'B', 'E', 'E', 'C', 'A', 'H', 'B', 'B', 'H', 'C', 'C', 'B', 'E', 'C', 'B', 'F', 'G', 'F', 'G', 'A', 'G', 'E', 'C', 'A', 'H', 'C', 'C', 'E']
-
+fake_randomwalk1 = ['B', 'D', 'G', 'G', 'G', 'A', 'G', 'E', 'C']
+fake_randomwalk2 = ['A', 'F', 'G', 'F', 'G', 'A', 'H', 'G', 'B']
 
 #"initialstate" function testing
 
@@ -102,8 +103,15 @@ def test_rnd_walk_2():
     assert np.array_equal(probdistr2, np.around(statdistr, 2))
     assert np.array_equal(probdistr1, probdistr2)        
 
-    
-    
+
+#"check_rnd_walk" function testing
+
+# test 1: tests that the given random walk does not contain forbidden transitions   
+def test_check_rnd_walk1():
+    assert Functions.check_rnd_walk(Functions.rnd_walk(number_steps, T, 'B', states, 4))   
+    assert Functions.check_rnd_walk(Functions.rnd_walk(number_steps, T, 'A', states, 1))
+    assert not Functions.check_rnd_walk(fake_randomwalk1)
+    assert not Functions.check_rnd_walk(fake_randomwalk2)
 
 
 
