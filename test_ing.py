@@ -2,6 +2,7 @@ import numpy as np
 import Functions
 import pytest
 import math
+import collections
 
 
 #Variables used in testing functions 
@@ -61,8 +62,8 @@ def test_prob_distr_1():
 def test_prob_distr_2():
     assert math.isclose(np.sum(Functions.prob_distr(T, IS, number_steps)[30]),1)
 
-# test 4: tests that for different initial state, the stationary distribution is the same  
-def test_prob_distr_4():
+# test 3: tests that for different initial state, the stationary distribution is the same  
+def test_prob_distr_3():
     assert np.array_equal(Functions.prob_distr(T, Functions.initialstate('F'), 100)[100], Functions.prob_distr(T, Functions.initialstate('G'), 100)[100])
 
 
@@ -71,7 +72,35 @@ def test_prob_distr_4():
 # test 1: tests that the output is the expected value
 def test_rnd_walk_1():
     assert Functions.rnd_walk(number_steps, T, 'A', states, 3) == randomwalk
-        
+    
+# test 2: tests that the probability distribution of the occurrences of the chain is approximately equal to the stationary distribution
+def test_rnd_walk_2():
+    occurrences1 = collections.Counter(Functions.rnd_walk(1001000, T, 'A', states, 7)[-1000000:])
+    probdistr1 = []
+    probdistr1.append(round(occurrences1['A']/1000000, 2))
+    probdistr1.append(round(occurrences1['B']/1000000, 2))
+    probdistr1.append(round(occurrences1['C']/1000000, 2))
+    probdistr1.append(round(occurrences1['D']/1000000, 2))
+    probdistr1.append(round(occurrences1['E']/1000000, 2))
+    probdistr1.append(round(occurrences1['F']/1000000, 2))
+    probdistr1.append(round(occurrences1['G']/1000000, 2))
+    probdistr1.append(round(occurrences1['H']/1000000, 2))
+    probdistr1 = np.array(probdistr1)
+    assert np.array_equal(probdistr1, np.around(statdistr, 2))    
+    #test the same as above but considering a chain generated with a different random seed
+    occurrences2 = collections.Counter(Functions.rnd_walk(1001000, T, 'A', states, 1)[-1000000:])
+    probdistr2 = []
+    probdistr2.append(round(occurrences2['A']/1000000, 2))
+    probdistr2.append(round(occurrences2['B']/1000000, 2))
+    probdistr2.append(round(occurrences2['C']/1000000, 2))
+    probdistr2.append(round(occurrences2['D']/1000000, 2))
+    probdistr2.append(round(occurrences2['E']/1000000, 2))
+    probdistr2.append(round(occurrences2['F']/1000000, 2))
+    probdistr2.append(round(occurrences2['G']/1000000, 2))
+    probdistr2.append(round(occurrences2['H']/1000000, 2))
+    probdistr2 = np.array(probdistr2)
+    assert np.array_equal(probdistr2, np.around(statdistr, 2))
+    assert np.array_equal(probdistr1, probdistr2)        
 
     
     
