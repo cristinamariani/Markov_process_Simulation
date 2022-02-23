@@ -28,7 +28,7 @@ print(T, '\n')
 initial_state = config.get('initial state', 'state')
 IS = Functions.initialstate(initial_state)
 print("Initial state: ", initial_state)
-#I = np.matrix([IS])
+
 
 #Stationary distribution calculation
 
@@ -38,8 +38,8 @@ A = Functions.prob_distr(T, IS, number_steps)
 #the number of steps must be at least 15 in order to reach stationarity
 if number_steps >= 15:
     print("\nStationary distribution:") 
-    statdistr = A[len(A)-1]
-    print(statdistr) #the stationary distribution is the last element of A 
+    statdistr = A[len(A)-1] #the stationary distribution is the last element of A 
+    print(statdistr)
 
 
 #Probabilities calculation
@@ -56,7 +56,7 @@ print("\nState G:", B[6])
 print("\nState H:", B[7]) 
 
 
-#Random walk generation
+#Random walk generation and check
 
 states = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 seed = 3 #random seed
@@ -64,13 +64,11 @@ path = Functions.rnd_walk(number_steps, T, initial_state, states, seed)
 print("\nRandom walk example:")
 print(path)
 Functions.check_rnd_walk(path)
+
   
 #Plot
 
 Functions.plot_func(A, B) 
-
-
-
 
 
 
