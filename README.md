@@ -27,12 +27,12 @@ I split the project in four files:
 
 * [Configuration.txt](https://github.com/cristinamariani/Markov_process_Simulation/blob/master/Configuration.txt) is provided with the transition matrix and the initial settings for starting the simulation: the initial state and the number of steps.
 * The file [Functions.py](https://github.com/cristinamariani/Markov_process_Simulation/blob/master/Functions.py) contains all the functions needed for the simulation: the first function returns an array which identifies the initial state; the second function performs the matrix multiplication and returns an array that contains all the 
-calculated distributions: for a minimum number of steps equal to 10, the stationary distribution is the last element of that array. The third function has the role of plotting
+calculated distributions: for a minimum number of steps equal to 15, the stationary distribution is the last element of that array. The third function has the role of plotting
 the probabilities to reach one state at every step, whereas the fourth function is in charge of generating an example of a possible random walk "traveled" by the system
-during the process.
+during the process. The fifth function, eventually, checks that the random walk does not contain transitions between two states which are characterized by a transition probability equal to zero.
 * The file [Simulation.py](https://github.com/cristinamariani/Markov_process_Simulation/blob/master/Simulation.py) contains all the instructions for running the simulation: 
 here, the system in initialized by importing the configuration file thanks to the ConfigParser library; moreover, all the functions from Functions.py are exploited. This 
-file allows the calculation of the stationary distribution and of the probabilities to reach one state at every step. Furthermore, there are the plotting of those probabilities versus the number of steps and the construction of a simulated random walk, which is built by exploiting the random library and an arbitrary random seed. As expected, the stability of the process is reached and the stationary distribution is the same independently on the initial state. 
+file allows the calculation of the stationary distribution and of the probabilities to reach one state at every step. Furthermore, there are the plotting of those probabilities versus the number of steps and the construction and check of a simulated random walk, which is built by exploiting the random library and an arbitrary random seed. As expected, the stability of the process is reached and the stationary distribution is the same independently on the initial state. 
 * with [test_ing.py](https://github.com/cristinamariani/Markov_process_Simulation/blob/master/test_ing.py) I could test all the functions in order to verify them to work
 properly.
 
